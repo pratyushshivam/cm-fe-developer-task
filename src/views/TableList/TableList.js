@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -10,6 +11,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { departments } from "../../assets/data/HR.js";
 import CustomAPITable from "components/Table/APITable.js";
+import axios from "axios";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -44,6 +46,20 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
+  const [department, setDepartment] = useState("hr");
+  const api = `https://randomuser.me/api/?seed=${department}&results=10`;
+  const [apiData, setApiData] = useState([]);
+  useEffect(() => {
+    axios.get(api).then((res) => {
+      console.log(res);
+      console.log(res.data.results);
+      setApiData(res.data.results);
+    });
+  }, [department]);
+  const selectedData = (e) => {
+    console.log(e);
+    setDepartment(e);
+  };
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -59,6 +75,7 @@ export default function TableList() {
               tableHeaderColor="primary"
               tableHead={["Select", "ID", "Department", "Location", "Manager"]}
               tableData={departments}
+              sendSelectedDepartmentName={selectedData}
             />
           </CardBody>
         </Card>
@@ -76,8 +93,8 @@ export default function TableList() {
           <CardBody>
             <CustomAPITable
               tableHeaderColor="primary"
-              tableHead={["Select", "ID", "Department", "Location", "Manager"]}
-              tableData={departments}
+              tableHead={["Gender", "Name", "Location", "Email", "Login"]}
+              tableData={apiData.length > 1 ? apiData : []}
             />
           </CardBody>
         </Card>

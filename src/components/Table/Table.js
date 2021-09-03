@@ -14,20 +14,23 @@ import { TableBody } from "@material-ui/core";
 import "./Table.css";
 
 const useStyles = makeStyles(styles);
-const clickHandler = (e, num) => {
-  console.log(e);
-  console.log(num);
-  const element = document.getElementsByClassName("MuiTableRow-root")[e + 1];
-  console.log(element);
-  element.classList.toggle("highlight-tr");
-};
 
 export default function CustomTable(props) {
   const classes = useStyles();
   const { tableHeaderColor } = props;
-  const { tableHead, tableData } = props;
+  // eslint-disable-next-line react/prop-types
+  const { tableHead, tableData, sendSelectedDepartmentName } = props;
   // console.log("DATA");
   console.log(tableData);
+  const clickHandler = (e, num) => {
+    console.log(e);
+    console.log(num);
+    const element = document.getElementsByClassName("MuiTableRow-root")[e + 1];
+    console.log(element);
+    element.classList.toggle("highlight-tr");
+    console.log(tableData[e].department);
+    sendSelectedDepartmentName(tableData[e].department);
+  };
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>

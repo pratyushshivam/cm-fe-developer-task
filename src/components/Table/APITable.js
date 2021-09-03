@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -27,7 +28,7 @@ export default function CustomAPITable(props) {
   const { tableHeaderColor } = props;
   const { tableHead, tableData } = props;
   // console.log("DATA");
-  console.log(tableData);
+  console.log("DDD", tableData);
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -46,20 +47,29 @@ export default function CustomAPITable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableData.map((data, num) => (
-            <TableRow key={num}>
-              <TableCell>
-                <Checkbox
-                  onClick={(nums) => clickHandler(num, nums)}
-                  inputProps={{ "aria-label": "primary checkbox" }}
-                />
-              </TableCell>
-
-              <TableCell>{data.id}</TableCell>
-              <TableCell>{data.department}</TableCell>
-              <TableCell>{data.location}</TableCell>
-            </TableRow>
-          ))}
+          {tableData.length > 2
+            ? tableData.map((data, num) => (
+                <TableRow key={num}>
+                  <TableCell>{data.gender}</TableCell>
+                  <TableCell>
+                    {data.name.title} {data.name.first} {data.name.last}
+                  </TableCell>
+                  <TableCell>
+                    {data.location.street.name} {data.location.street.number}{" "}
+                    {","}
+                    {<br />}
+                    {data.location.city} {","} {data.location.state}
+                    {","} {data.location.postcode} {","} {<br />}
+                    {data.location.country}
+                  </TableCell>
+                  <TableCell>{data.email}</TableCell>
+                  <TableCell>
+                    Username : {data.login.username} {<br />} Password :{" "}
+                    {data.login.password}
+                  </TableCell>
+                </TableRow>
+              ))
+            : ""}
         </TableBody>
       </Table>
     </div>
