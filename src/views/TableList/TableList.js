@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/Table.js";
@@ -12,6 +9,7 @@ import CardBody from "components/Card/CardBody.js";
 import { departments } from "../../assets/data/HR.js";
 import CustomAPITable from "components/Table/APITable.js";
 import axios from "axios";
+
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -50,6 +48,16 @@ export default function TableList() {
   const api = `https://randomuser.me/api/?seed=${department}&results=10`;
   const [apiData, setApiData] = useState([]);
   useEffect(() => {
+    if (localStorage.getItem("departmentname")) {
+      setDepartment(localStorage.getItem("departmentname"));
+      console.log(localStorage.getItem("departmentname"));
+    }
+  });
+  useEffect(() => {
+    if (localStorage.getItem("departmentname")) {
+      setDepartment(localStorage.getItem("departmentname"));
+      console.log(localStorage.getItem("departmentname"));
+    }
     axios.get(api).then((res) => {
       console.log(res);
       console.log(res.data.results);
