@@ -22,7 +22,7 @@ const clickHandler = (e, num) => {
   element.classList.toggle("highlight-tr");
 };
 
-export default function CustomTable(props) {
+export default function CustomAPITable(props) {
   const classes = useStyles();
   const { tableHeaderColor } = props;
   const { tableHead, tableData } = props;
@@ -58,9 +58,6 @@ export default function CustomTable(props) {
               <TableCell>{data.id}</TableCell>
               <TableCell>{data.department}</TableCell>
               <TableCell>{data.location}</TableCell>
-              <TableCell>
-                {data.manager.name.first} {data.manager.name.last}
-              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -69,11 +66,11 @@ export default function CustomTable(props) {
   );
 }
 
-CustomTable.defaultProps = {
+CustomAPITable.defaultProps = {
   tableHeaderColor: "gray",
 };
 
-CustomTable.propTypes = {
+CustomAPITable.propTypes = {
   tableHeaderColor: PropTypes.oneOf([
     "warning",
     "primary",
